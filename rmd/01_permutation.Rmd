@@ -1,0 +1,109 @@
+---
+title: "Permutations and Combinations"
+author: "Zaw Myo Tun"
+date: "5/23/2020"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(gtools)
+```
+
+## Permutations
+
+### Permutations without repetition
+
+A permutation without repition (simple permutation), denoted by $P_n$, of $a_{1}, a_{2}, \dots, a_{n}$ is one of the possible ways to fill each of the $n$ slots with one and only one of the $n$ objects, with the proviso that each object can be assiend to only one slot.  
+
+$$P_n = n!$$
+with a convention that
+$$0! = 1$$
+
+**Example**  
+There are 5 seats around a table and 5 people to be seated at the table. In how many different ways can they seat themselves?  
+
+$$P_5 = 5! = `r factorial(5)`$$
+```{r eval = FALSE}
+gtools::permutations(n = 5,
+                     r = 5,
+                     v = 1:5,
+                     repeats.allowed = FALSE)
+```
+
+### Permutation with repetition
+
+Let $a_{1}, a_{2}, \dots, a_{n}$ be $n$ objects. Let $s_{1}, s_{2}, \dots, s_{k}$ be $n$ slots to which $n$ objects can be assigned. A permutation with repetition, denoted by $P_n^{\prime}$, of $a_{1}, a_{2}, \dots, a_{n}$ is one of the possible ways to fill each of the $n$ slots with one and only one of the $n$ objects, with the proviso that an object can be assigned to more than one slot.  
+
+Selection rules:  
+
+1. Each object can be selected more than once
+2. The order of selection matters (the same $n$ objects selected in different orders are regarded as different permutations.)
+
+$$P_n^{\prime} = n^n$$
+**Example**  
+A byte is a number consisting of 8 digits that can be equal either to 0 or to 1. How many different bytes are there?  
+
+$$2^8 = `r 2^8`$$
+
+```{r eval = FALSE}
+gtools::permutations(n = 2,
+                     r = 8,
+                     v = c(0, 1),
+                     repeats.allowed = TRUE)
+```
+
+## $k$-permutations
+
+### $k$-permutations without repetition
+
+Let $a_{1}, a_{2}, \dots, a_{n}$ be $n$ objects. Let $s_{1}, s_{2}, \dots, s_{k}$ be $k$ ($k \le n$) alots to which k of the $n$ objects can be assigned. A $k$-permutation (or $k$-permutation without repetition or simple $k$-permutation) of $n$ objects from $a_{1}, a_{2}, \dots, a_{n}$ is one of the possible ways to choose $k$ of the $n$ objects and fill each of the $k$ slots with one and only one object. Each object can be chosen only once.  
+
+Selection rules:
+
+1. the order of selection matters
+2. each object can be selected only once
+
+$$P_{n,k} = \frac{n!}{(n - k)!}$$
+
+**Example**  
+There is a basket of fruit containing an apple, a banana and an orange. There are five girls who want to eat one fruit. How many ways are there to give three of the five girls one fruit each and leave two of them without a fruit to eat?  
+
+$$P_{5, 3} = \frac{5!}{(5 - 3)!} = `r factorial(5)/factorial(5-3)`$$
+
+```{r eval = FALSE}
+gtools::permutations(n = 5,
+                     r = 3,
+                     repeats.allowed = FALSE) %>% 
+  data.frame() %>% 
+  setNames(c("apple", "banana", "orange"))
+```
+
+## $k$-permutation with repetition
+
+Let $a_{1}, a_{2}, \dots, a_{n}$ be $n$ objects. Let $s_{1}, s_{2}, \dots, s_{n}$ be $k$ ($k \le n$) slots to which k of the n objects can be assigned. A $k$-permutation with repeatition of $n$ objets from $a_{1}, a_{2}, \dots, a_{n}$ is one of the possible ways to choose $k$ of the $n$ objects and fill each of the $k$ slots with one and only one object. Each object can be chosen more than once.  
+
+$$P_{n,k}^{\prime} = n^k$$
+
+**Example**  
+How many three digit numbers can be formed with the digits: 1, 2, 3, 4, 5?  
+
+$$P_{5, 3}^{\prime} = 5^3 = `r 5^3`$$
+
+```{r eval = FALSE}
+gtools::permutations(n = 5,
+                     r = 3,
+                     repeats.allowed = TRUE)
+```
+
+## Combinations
+
+### Combinations without repetition
+
+
+### Combinations without repetition
+
